@@ -13,3 +13,5 @@ docker compose logs -f
 docker logs mirofish-ollama --tail 1000
 
 docker exec mirofish-ollama ollama pull qwen2.5:14b
+
+docker exec mirofish-ollama wget -qO- http://localhost:11436/api/tags
