@@ -45,6 +45,8 @@ services:
   ollama:
     image: ollama/ollama:latest
     container_name: mirofish-ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0:11436
     ports:
       - "11436:11436"
     volumes:
