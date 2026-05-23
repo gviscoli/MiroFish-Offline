@@ -219,8 +219,12 @@ const handleNewProject = async () => {
       addLog(`Error generating ontology: ${error.value}`)
     }
   } catch (err) {
-    error.value = err.message
-    addLog(`Exception in handleNewProject: ${err.message}`)
+    const detail = err.backendError || err.message
+    error.value = detail
+    addLog(`Exception in handleNewProject: ${detail}`)
+    if (err.backendTraceback) {
+      console.error('Server traceback:\n', err.backendTraceback)
+    }
   } finally {
     loading.value = false
   }

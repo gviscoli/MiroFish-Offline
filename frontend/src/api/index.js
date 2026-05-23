@@ -36,6 +36,16 @@ service.interceptors.response.use(
   error => {
     console.error('Response error:', error)
 
+    // Extract backend error details from response body (e.g. 500 with JSON body)
+    const backendError = error.response?.data?.error
+    const backendTraceback = error.response?.data?.traceback
+    if (backendError) {
+      console.error('Backend error:', backendError)
+    }
+    if (backendTraceback) {
+      console.error('Backend traceback:\n', backendTraceback)
+    }
+
     // Handle timeout
     if (error.code === 'ECONNABORTED' && error.message.includes('timeout')) {
       console.error('Request timeout')
@@ -44,6 +54,12 @@ service.interceptors.response.use(
     // Handle network error
     if (error.message === 'Network Error') {
       console.error('Network error - please check your connection')
+    }
+
+    // Attach backend details to error for callers to use
+    if (backendError) {
+      error.backendError = backendError
+      error.backendTraceback = backendTraceback
     }
 
     return Promise.reject(error)
