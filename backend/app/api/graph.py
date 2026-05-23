@@ -253,8 +253,9 @@ def generate_ontology():
                 "total_text_length": project.total_text_length
             }
         })
-        
+
     except Exception as e:
+        logger.error(f"Ontology generation failed: {e}", exc_info=True)
         return jsonify({
             "success": False,
             "error": str(e),
