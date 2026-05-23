@@ -1,4 +1,6 @@
+name: MiroFish Offline
 services:
+
   mirofish:
     build: .
     # Or use pre-built image (when available):
@@ -44,7 +46,7 @@ services:
     image: ollama/ollama:latest
     container_name: mirofish-ollama
     ports:
-      - "11434:11434"
+      - "11436:11436"
     volumes:
       - ollama_data:/root/.ollama
     restart: unless-stopped
